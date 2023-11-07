@@ -11,7 +11,11 @@ const SearchBar = () => {
       <View style={style.searchIcon}>
         <Icon name="search" size={32} color={Colors.secondary300} />
       </View>
-      <TextInput style={style.searchPlaceholder} placeholder="Search..." />
+      <TextInput
+        style={style.searchPlaceholder}
+        placeholderTextColor={Colors.secondary300}
+        placeholder="Search..."
+      />
     </View>
   );
 };
