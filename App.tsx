@@ -5,11 +5,19 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from './screens/Home';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AboutScreen from './screens/AboutScreen';
+import {ScreenComponents, IconMapping} from './types/AppTypes';
 
 const Tab = createBottomTabNavigator();
 
-// Screen
-const screens = ['Home', 'About'];
+const screenComponents: ScreenComponents = {
+  Home,
+  AboutScreen,
+};
+
+const iconMapping: IconMapping = {
+  AboutScreen: {active: 'person', inactive: 'person-outline'},
+  Home: {active: 'home', inactive: 'home-outline'},
+};
 
 const App = () => {
   return (
@@ -19,22 +27,33 @@ const App = () => {
         <Tab.Navigator
           initialRouteName="Home"
           screenOptions={({route}) => ({
+            headerShown: false,
+            tabBarStyle: {
+              height: 60,
+              position: 'absolute',
+              bottom: 16,
+              right: 16,
+              left: 16,
+              borderRadius: 10,
+            },
             // eslint-disable-next-line react/no-unstable-nested-components
             tabBarIcon: ({focused}) => {
-              let iconName;
-              let routeName = route.name;
-
-              if (routeName === screens[0]) {
-                iconName = focused ? 'home' : 'home-outline';
-              } else if (routeName === screens[1]) {
-                iconName = focused ? 'person' : 'person-outline';
-              }
+              const routeName = route.name;
+              const iconName = focused
+                ? iconMapping[routeName]?.active
+                : iconMapping[routeName]?.inactive;
               console.log(routeName);
-              return <Icon name={iconName} />;
+              return <Icon name={iconName} size={32} />;
             },
           })}>
-          <Tab.Screen name="Home" component={Home} />
-          <Tab.Screen name="About" component={AboutScreen} />
+          {Object.keys(screenComponents).map((screenName, index) => (
+            <Tab.Screen
+              key={index}
+              name={screenName}
+              component={screenComponents[screenName]}
+              options={{tabBarShowLabel: false}}
+            />
+          ))}
         </Tab.Navigator>
       </NavigationContainer>
     </>
