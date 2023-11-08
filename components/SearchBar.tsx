@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable prettier/prettier */
-import {StyleSheet, TextInput, View, Text} from 'react-native';
+import {StyleSheet, TextInput, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Colors from '../constants/Colors';
 
@@ -13,6 +13,8 @@ const SearchBar = () => {
       </View>
       <TextInput
         style={style.searchPlaceholder}
+        underlineColorAndroid="transparent"
+        autoCorrect={false}
         placeholderTextColor={Colors.secondary300}
         placeholder="Search..."
       />
@@ -32,7 +34,8 @@ const style = StyleSheet.create({
   },
   searchPlaceholder: {
     fontFamily: 'Roboto-Medium',
-    color: Colors.secondary300,
+    color: Colors.fontPrimary,
+    borderBottomWidth: 0,
     flex: 1,
   },
 });

@@ -5,18 +5,22 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from './screens/Home';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AboutScreen from './screens/AboutScreen';
-import {ScreenComponents, IconMapping} from './types/AppTypes';
+import {IconMapping} from './types/AppTypes';
 
 const Tab = createBottomTabNavigator();
 
-const screenComponents: ScreenComponents = {
-  Home,
-  AboutScreen,
-};
-
+// Navigation & Icon map
 const iconMapping: IconMapping = {
-  AboutScreen: {active: 'person', inactive: 'person-outline'},
-  Home: {active: 'home', inactive: 'home-outline'},
+  Home: {
+    screenComponent: Home,
+    active: 'home',
+    inactive: 'home-outline',
+  },
+  AboutScreen: {
+    screenComponent: AboutScreen,
+    active: 'person',
+    inactive: 'person-outline',
+  },
 };
 
 const App = () => {
@@ -26,7 +30,7 @@ const App = () => {
       <NavigationContainer>
         <Tab.Navigator
           initialRouteName="Home"
-          screenOptions={({route}) => ({
+          screenOptions={() => ({
             headerShown: false,
             tabBarStyle: {
               height: 60,
@@ -36,22 +40,23 @@ const App = () => {
               left: 16,
               borderRadius: 10,
             },
-            // eslint-disable-next-line react/no-unstable-nested-components
-            tabBarIcon: ({focused}) => {
-              const routeName = route.name;
-              const iconName = focused
-                ? iconMapping[routeName]?.active
-                : iconMapping[routeName]?.inactive;
-              console.log(routeName);
-              return <Icon name={iconName} size={32} />;
-            },
           })}>
-          {Object.keys(screenComponents).map((screenName, index) => (
+          {Object.keys(iconMapping).map((routeName, index) => (
             <Tab.Screen
               key={index}
-              name={screenName}
-              component={screenComponents[screenName]}
-              options={{tabBarShowLabel: false}}
+              name={routeName}
+              component={iconMapping[routeName].screenComponent}
+              options={{
+                // eslint-disable-next-line react/no-unstable-nested-components
+                tabBarIcon: ({focused}) => {
+                  const iconName = focused
+                    ? iconMapping[routeName].active
+                    : iconMapping[routeName].inactive;
+                  console.log(routeName, index); //log
+                  return <Icon name={iconName} size={32} />;
+                },
+                tabBarShowLabel: false,
+              }}
             />
           ))}
         </Tab.Navigator>
