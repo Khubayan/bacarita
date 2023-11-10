@@ -8,9 +8,6 @@ const Home = () => {
   return (
     <View style={style.container}>
       <View>
-        <SearchBar />
-      </View>
-      <View>
         <Text>Hello</Text>
       </View>
       <View>
@@ -29,7 +26,8 @@ const Home = () => {
 const style = StyleSheet.create({
   container: {
     backgroundColor: Colors.secondary900,
-    paddingVertical: 12,
+    flex: 1,
+    paddingVertical: 30,
     paddingHorizontal: 16,
   },
 });
