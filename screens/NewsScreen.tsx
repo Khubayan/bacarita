@@ -1,10 +1,11 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react/react-in-jsx-scope */
 import {View, Text, StyleSheet} from 'react-native';
-import SearchBar from '../components/SearchBar';
+// import SearchBar from '../components/SearchBar';
 import Colors from '../constants/Colors';
+import CardText from '../components/CardText';
 
-const Home = () => {
+const NewsScreen = () => {
   return (
     <View style={style.container}>
       <View>
@@ -14,7 +15,11 @@ const Home = () => {
         <Text>Genre</Text>
       </View>
       <View>
-        <Text>Latest News</Text>
+        <Text
+          style={{fontSize: 30, color: Colors.fontPrimary, marginVertical: 4}}>
+          Latest News
+        </Text>
+        <CardText />
       </View>
       <View>
         <Text>Around the world</Text>
@@ -26,10 +31,11 @@ const Home = () => {
 const style = StyleSheet.create({
   container: {
     backgroundColor: Colors.secondary900,
+    // backgroundColor: 'black',
     flex: 1,
-    paddingVertical: 30,
+    // paddingVertical: 30,
     paddingHorizontal: 16,
   },
 });
 
-export default Home;
+export default NewsScreen;

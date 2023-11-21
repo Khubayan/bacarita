@@ -5,14 +5,14 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import Home from './screens/Home';
-import Icon from 'react-native-vector-icons/Ionicons';
+import NewsScreen from './screens/NewsScreen';
+// import Icon from 'react-native-vector-icons/Ionicons';
 import AboutScreen from './screens/AboutScreen';
 import TestedScreenu from './screens/TestedScreen';
 import SearchBar from './components/SearchBar';
 import Colors from './constants/Colors';
-import {StyleSheet, Text, View} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import {StyleSheet, View} from 'react-native';
+// import {ScrollView} from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -26,7 +26,7 @@ const TopTabComponent = () => {
       </View>
 
       <TopTab.Navigator
-        screenOptions={({route}) => {
+        screenOptions={() => {
           return {
             tabBarStyle: {
               backgroundColor: style.mainBacground.backgroundColor, // Change this to white
@@ -61,7 +61,7 @@ const TopTabComponent = () => {
             },
           }}
           name="News"
-          component={Home}
+          component={NewsScreen}
         />
         <TopTab.Screen
           options={{
@@ -122,7 +122,7 @@ const MainTabs = () => {
 
 const App = () => {
   return (
-    <View style={[style.container, style.flexContent, style.mainBacground]}>
+    <View style={[style.flexContent, style.mainBacground]}>
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="MainTabs"
@@ -158,23 +158,3 @@ const style = StyleSheet.create({
 });
 
 export default App;
-
-/* <Tab.Screen name="TopTab" component={TopTabComponent} />
-          {Object.keys(iconMapping).map((routeName, index) => (
-            <Tab.Screen
-              key={index}
-              name={routeName}
-              component={iconMapping[routeName].screenComponent}
-              options={{
-                // eslint-disable-next-line react/no-unstable-nested-components
-                tabBarIcon: ({focused}) => {
-                  const iconName = focused
-                    ? iconMapping[routeName].active
-                    : iconMapping[routeName].inactive;
-                  console.log(routeName, index); //log
-                  return <Icon name={iconName} size={32} />;
-                },
-                tabBarShowLabel: false,
-              }}
-            />
-          ))} */
