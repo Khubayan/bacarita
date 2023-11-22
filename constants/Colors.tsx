@@ -6,6 +6,7 @@ const Colors = {
   secondary900: '#FFFFFF',
   fontPrimary: '#010101',
   fontSecondary: '#B5B9C7',
+  fontTernary: '#FDFDFE',
   //less
 };
 
