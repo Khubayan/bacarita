@@ -138,6 +138,7 @@ const App = () => {
             },
           })}>
           <Stack.Screen name="MainTabs" component={MainTabs} />
+          <Stack.Screen name="MainNewsPage" component={TestedScreenu} />
         </Stack.Navigator>
       </NavigationContainer>
     </View>

@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const Berita = ({judul, gambar, teks}) => {
+const Berita = () => {
   const [comment, setComment] = useState('');
 
   const handleCommentSubmit = () => {

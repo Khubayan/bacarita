@@ -12,9 +12,13 @@ import {useNavigation} from '@react-navigation/native';
 const NewsScreen = () => {
   const navigation = useNavigation();
 
-  const handlePress = () => {
-    navigation.navigate('Events');
+  const handlePressNavigation = () => {
+    navigation.navigate('MainNewsPage');
   };
+
+  // const handlePressBadge = () => {
+
+  // }
 
   return (
     <ScrollView>
@@ -38,7 +42,7 @@ const NewsScreen = () => {
             <Text>See All</Text>
           </View>
           <View>
-            <Pressable onPress={handlePress}>
+            <Pressable onPress={handlePressNavigation}>
               <ItemList
                 itemImageLocalPath={require('../assets/images/meta.jpg')}
                 itemTitle="Facebook-parent Meta breaks up its Responsible AI team"
