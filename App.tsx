@@ -12,6 +12,7 @@ import TestedScreenu from './screens/TestedScreen';
 import SearchBar from './components/SearchBar';
 import Colors from './constants/Colors';
 import {StyleSheet, View} from 'react-native';
+import WeatherScreen from './screens/WeatherScreen';
 // import {ScrollView} from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();
@@ -94,7 +95,7 @@ const TopTabComponent = () => {
             },
           }}
           name="Weather"
-          component={TestedScreenu}
+          component={WeatherScreen}
         />
       </TopTab.Navigator>
     </View>
