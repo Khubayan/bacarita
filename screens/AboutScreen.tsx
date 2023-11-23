@@ -6,19 +6,22 @@ import {View, Text, StyleSheet} from 'react-native';
 const AboutScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.mainTitle}>LELAH PAK:)</Text>
+      <Text style={styles.mainTitle}>MOBILE PROGRAMMING KOK JAVA?:)</Text>
+      <Text>KOK KOTLIN?:)</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    paddingHorizontal: 55,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   mainTitle: {
     fontFamily: 'Caveat',
+    textAlign: 'center',
     fontSize: 30,
   },
 });
