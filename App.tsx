@@ -6,12 +6,15 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import NewsScreen from './screens/NewsScreen';
-// import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import AboutScreen from './screens/AboutScreen';
-import TestedScreenu from './screens/TestedScreen';
+import FirstNews from './screens/FirstNews';
 import SearchBar from './components/SearchBar';
 import Colors from './constants/Colors';
 import {StyleSheet, View} from 'react-native';
+import SecondNews from './screens/SecondNews';
+import ThirdNews from './screens/ThirdNews';
+import EventsScreen from './screens/EventsScreeen';
 // import {ScrollView} from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();
@@ -78,7 +81,7 @@ const TopTabComponent = () => {
             },
           }}
           name="Events"
-          component={TestedScreenu}
+          component={EventsScreen}
         />
         <TopTab.Screen
           options={{
@@ -94,7 +97,7 @@ const TopTabComponent = () => {
             },
           }}
           name="Weather"
-          component={TestedScreenu}
+          component={FirstNews}
         />
       </TopTab.Navigator>
     </View>
@@ -113,8 +116,28 @@ const MainTabs = () => {
             borderColor: 'transparent',
           },
         })}>
-        <Tab.Screen name="Home" component={TopTabComponent} />
-        <Tab.Screen name="BottomTab" component={AboutScreen} />
+        <Tab.Screen
+          name="Home"
+          component={TopTabComponent}
+          options={{
+            tabBarShowLabel: false,
+            // eslint-disable-next-line react/no-unstable-nested-components
+            tabBarIcon: ({color, size}) => (
+              <Icon name="home" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="BottomTab"
+          component={AboutScreen}
+          options={{
+            tabBarShowLabel: false,
+            // eslint-disable-next-line react/no-unstable-nested-components
+            tabBarIcon: ({color}) => (
+              <Icon name="settings-sharp" size={32} color={color} />
+            ),
+          }}
+        />
       </Tab.Navigator>
     </>
   );
@@ -138,7 +161,9 @@ const App = () => {
             },
           })}>
           <Stack.Screen name="MainTabs" component={MainTabs} />
-          <Stack.Screen name="MainNewsPage" component={TestedScreenu} />
+          <Stack.Screen name="FirstNews" component={FirstNews} />
+          <Stack.Screen name="SecondNews" component={SecondNews} />
+          <Stack.Screen name="ThirdNews" component={ThirdNews} />
         </Stack.Navigator>
       </NavigationContainer>
     </View>
