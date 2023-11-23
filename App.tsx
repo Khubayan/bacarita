@@ -12,6 +12,10 @@ import FirstNews from './screens/FirstNews';
 import SearchBar from './components/SearchBar';
 import Colors from './constants/Colors';
 import {StyleSheet, View} from 'react-native';
+import SecondNews from './screens/SecondNews';
+import ThirdNews from './screens/ThirdNews';
+import EventsScreen from './screens/EventsScreeen';
+import WeatherScreen from './screens/WeatherScreen';
 
 // import {ScrollView} from 'react-native-gesture-handler';
 
@@ -95,7 +99,7 @@ const TopTabComponent = () => {
             },
           }}
           name="Weather"
-
+          component={WeatherScreen}
         />
       </TopTab.Navigator>
     </View>
@@ -120,9 +124,10 @@ const MainTabs = () => {
           options={{
             tabBarShowLabel: false,
             // eslint-disable-next-line react/no-unstable-nested-components
-            tabBarIcon: ({color, size}) => (
-              <Icon name="home" size={size} color={color} />
-            ),
+            tabBarIcon: ({focused}) => {
+              const color = focused ? Colors.primary300 : Colors.secondary300;
+              return <Icon name="home" size={32} color={color} />;
+            },
           }}
         />
         <Tab.Screen
@@ -131,9 +136,10 @@ const MainTabs = () => {
           options={{
             tabBarShowLabel: false,
             // eslint-disable-next-line react/no-unstable-nested-components
-            tabBarIcon: ({color}) => (
-              <Icon name="settings-sharp" size={32} color={color} />
-            ),
+            tabBarIcon: ({focused}) => {
+              const color = focused ? Colors.primary300 : Colors.secondary300;
+              return <Icon name="gift" size={32} color={color} />;
+            },
           }}
         />
       </Tab.Navigator>
