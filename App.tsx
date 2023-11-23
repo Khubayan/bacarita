@@ -12,9 +12,7 @@ import FirstNews from './screens/FirstNews';
 import SearchBar from './components/SearchBar';
 import Colors from './constants/Colors';
 import {StyleSheet, View} from 'react-native';
-import SecondNews from './screens/SecondNews';
-import ThirdNews from './screens/ThirdNews';
-import EventsScreen from './screens/EventsScreeen';
+
 // import {ScrollView} from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();
@@ -97,7 +95,7 @@ const TopTabComponent = () => {
             },
           }}
           name="Weather"
-          component={FirstNews}
+
         />
       </TopTab.Navigator>
     </View>
