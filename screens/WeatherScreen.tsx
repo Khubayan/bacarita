@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable react/react-in-jsx-scope */
 import React, {useState, useEffect} from 'react';
 import {
   View,
@@ -95,39 +97,50 @@ const WeatherScreen = () => {
           {/* Garis horizontal di bawah teks "Max | Min" */}
           <View style={styles.horizontalLine} />
 
-          <Text style={styles.additionalInfo1}>
-            {getCurrentDay()}, {getCurrentTime()}
-          </Text>
-          <Icon
-            style={styles.icons1}
-            name="cloudy-outline"
-            size={30}
-            color="black"
-          />
-          <Text style={styles.additionalInfo1}>{getRandomTemperature()}</Text>
-
-          <Text style={styles.additionalInfo2}>
-            {getCurrentDay()}, {getCurrentTime()}
-          </Text>
-          <Icon
-            style={styles.icons2}
-            name="cloudy-outline"
-            size={30}
-            color="black"
-          />
-          <Text style={styles.additionalInfo2}>{getRandomTemperature()}</Text>
-
-          <Text style={styles.additionalInfo3}>
-            {getCurrentDay()}, {getCurrentTime()}
-          </Text>
-          <Icon
-            style={styles.icons3}
-            name="cloudy-outline"
-            size={30}
-            color="black"
-          />
-          <Text style={styles.additionalInfo3}>{getRandomTemperature()}</Text>
-
+          <View style={styles.containeritems}>
+            <View>
+              <Text style={styles.additionalInfo1}>
+                {getCurrentDay()}, {getCurrentTime()}
+              </Text>
+              <Icon
+                style={styles.icons1}
+                name="cloudy-outline"
+                size={30}
+                color="black"
+              />
+              <Text style={styles.additionalInfo1}>
+                {getRandomTemperature()}
+              </Text>
+            </View>
+            <View>
+              <Text style={styles.additionalInfo2}>
+                {getCurrentDay()}, {getCurrentTime()}
+              </Text>
+              <Icon
+                style={styles.icons2}
+                name="cloudy-outline"
+                size={30}
+                color="black"
+              />
+              <Text style={styles.additionalInfo2}>
+                {getRandomTemperature()}
+              </Text>
+            </View>
+            <View>
+              <Text style={styles.additionalInfo3}>
+                {getCurrentDay()}, {getCurrentTime()}
+              </Text>
+              <Icon
+                style={styles.icons3}
+                name="cloudy-outline"
+                size={30}
+                color="black"
+              />
+              <Text style={styles.additionalInfo3}>
+                {getRandomTemperature()}
+              </Text>
+            </View>
+          </View>
           <View style={styles.horizontalLine} />
         </View>
 
@@ -160,7 +173,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 25,
     color: Colors.fontTernary,
-    color: 'black',
+    // color: 'black',
     marginLeft: '40%',
     marginTop: 70,
     fontWeight: 'bold',
@@ -235,35 +248,52 @@ const styles = StyleSheet.create({
   },
   additionalInfo1: {
     fontSize: 15,
-    marginTop: 5,
+    // marginTop: 5,
     color: 'black',
-    marginLeft: -250,
+    alignSelf: 'center',
+    // marginLeft: -250,
   },
   icons1: {
-    marginLeft: -250,
+    // marginLeft: -250,
     marginTop: 1,
+    alignSelf: 'center',
   },
 
   additionalInfo2: {
     fontSize: 15,
-    marginTop: -80,
+    // marginTop: 80,
     color: 'black',
-    marginLeft: 20,
+    // marginLeft: 20,
+    alignSelf: 'center',
   },
   icons2: {
-    marginLeft: 20,
-    marginTop: 1,
+    // marginLeft: 20,
+    // marginTop: 1,
+    alignSelf: 'center',
   },
 
   additionalInfo3: {
     fontSize: 15,
-    marginTop: 7,
+    // marginTop: 7,
     color: 'black',
-    marginLeft: 250,
+    alignSelf: 'center',
+    // marginLeft: 250,
   },
   icons3: {
-    marginLeft: 250,
-    marginTop: 1,
+    // marginLeft: 250,
+    // marginTop: 1,
+    alignSelf: 'center',
+  },
+
+  containeritems: {
+    // justifyContent: 'space-evenly',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    // backgroundColor: 'red',
+    width: 400,
+    // alignContent: 'space-between',
   },
 });
 
