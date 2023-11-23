@@ -8,12 +8,14 @@ import ItemList from '../components/ItemList';
 import {ScrollView} from 'react-native-gesture-handler';
 import Badge from '../components/Bagdge';
 import {useNavigation} from '@react-navigation/native';
+// import {AppRootParamList} from '../types/NavigationTypes';
 
 const NewsScreen = () => {
   const navigation = useNavigation();
 
-  const handlePressNavigation = () => {
-    navigation.navigate('MainNewsPage');
+  // any :/
+  const handlePressNavigation = (pageName: any) => {
+    navigation.navigate(pageName);
   };
 
   // const handlePressBadge = () => {
@@ -21,7 +23,7 @@ const NewsScreen = () => {
   // }
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View style={style.container}>
         {/* <View>
           <Text>Hello</Text>
@@ -42,7 +44,10 @@ const NewsScreen = () => {
             <Text>See All</Text>
           </View>
           <View>
-            <Pressable onPress={handlePressNavigation}>
+            <Pressable
+              onPress={() => {
+                handlePressNavigation('FirstNews');
+              }}>
               <ItemList
                 itemImageLocalPath={require('../assets/images/meta.jpg')}
                 itemTitle="Facebook-parent Meta breaks up its Responsible AI team"
@@ -50,18 +55,28 @@ const NewsScreen = () => {
                 itemBadge={{name: 'Techno'}}
               />
             </Pressable>
-            <ItemList
-              itemImageLocalPath={require('../assets/images/btc.jpg')}
-              itemTitle="Binance's Changpeng Zhao to step down as part of $4.3..."
-              itemDate="November 22, 2023"
-              itemBadge={{name: 'Crypto'}}
-            />
-            <ItemList
-              itemImageLocalPath={require('../assets/images/doge.jpg')}
-              itemTitle="Elon Musk reaffirms support for Dogecoin, Tesla holds..."
-              itemDate="November 21, 2023"
-              itemBadge={{name: 'Crypto'}}
-            />
+            <Pressable
+              onPress={() => {
+                handlePressNavigation('SecondNews');
+              }}>
+              <ItemList
+                itemImageLocalPath={require('../assets/images/btc.jpg')}
+                itemTitle="Binance's Changpeng Zhao to step down as part of $4.3..."
+                itemDate="November 22, 2023"
+                itemBadge={{name: 'Crypto'}}
+              />
+            </Pressable>
+            <Pressable
+              onPress={() => {
+                handlePressNavigation('ThirdNews');
+              }}>
+              <ItemList
+                itemImageLocalPath={require('../assets/images/doge.jpg')}
+                itemTitle="Elon Musk reaffirms support for Dogecoin, Tesla holds..."
+                itemDate="November 21, 2023"
+                itemBadge={{name: 'Crypto'}}
+              />
+            </Pressable>
           </View>
         </View>
       </View>
