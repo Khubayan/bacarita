@@ -54,6 +54,8 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Roboto-Medium.ttf</string>
+		<string>Caveat.ttf</string>
+		<string>Montserrat.ttf</string>
 	</array>
 </dict>
 </plist>

@@ -2,6 +2,14 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "assets/fonts/Caveat.ttf",
+      "sha1": "82b10abbb30f9644797aada1802e9da7784e464e"
+    },
+    {
+      "path": "assets/fonts/Montserrat.ttf",
+      "sha1": "debd10e57fb07dd24187c41679885129449c1435"
+    },
+    {
       "path": "assets/fonts/Roboto-Medium.ttf",
       "sha1": "3c6a09fcc6a454924c81af7dff94fc6d399ed79b"
     }

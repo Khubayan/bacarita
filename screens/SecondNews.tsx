@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable react/react-in-jsx-scope */
+
 import React, {useState} from 'react';
 import {
   StyleSheet,
@@ -9,7 +12,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const Berita = () => {
+const SecondNews = () => {
   const [comment, setComment] = useState('');
 
   const handleCommentSubmit = () => {
@@ -22,12 +25,14 @@ const Berita = () => {
     <View style={styles.container}>
       <ScrollView style={styles.scrlview} stickyHeaderIndices={[1]}>
         <Text style={styles.judul}>
-          Salah Satu Pendiri Apple Sempat Buat Kripto WOZX Coin, Apa Itu?
+          Binance's Changpeng Zhao to step down as part of $4.3 billion DOJ
+          settlement
         </Text>
-        <Text style={styles.inteks}>
-          Ilustrasi Mata Uang Crypto. Foto: Unsplash+
-        </Text>
-        <Image source={require('../Source/Crypto.jpg')} style={styles.gambar} />
+        <Text style={styles.inteks}>November 22, 2023 - CNBC</Text>
+        <Image
+          source={require('../assets/images/btc.jpg')}
+          style={styles.gambar}
+        />
         <Text style={styles.isi}>
           <Text style={styles.isi}>
             Token WOZX berfungsi sebagai media di mana penghematan energi yang
@@ -126,4 +131,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Berita;
+export default SecondNews;

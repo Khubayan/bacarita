@@ -1,7 +1,10 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable prettier/prettier */
 export type AppRootParamList = {
-  Events: undefined;
+  // Events: undefined;
+  // MainNewsPage: undefined;
+  pageName: undefined;
+
   //   profile: undefined;
   //   post: {postId: string};
 };
