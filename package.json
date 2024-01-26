@@ -1,5 +1,5 @@
 {
-  "name": "Bacarita",
+  "name": "bacarita",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -15,6 +15,7 @@
     "@react-navigation/material-top-tabs": "^6.6.5",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.20",
+    "axios": "^1.6.7",
     "react": "18.2.0",
     "react-native": "0.72.6",
     "react-native-gesture-handler": "^2.13.4",

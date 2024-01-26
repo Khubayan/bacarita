@@ -5,17 +5,17 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import NewsScreen from './screens/NewsScreen';
+import NewsScreen from './src/screens/HomeScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
-import AboutScreen from './screens/AboutScreen';
-import FirstNews from './screens/FirstNews';
-import SearchBar from './components/SearchBar';
-import Colors from './constants/Colors';
+import AboutScreen from './src/screens/AboutScreen';
+import FirstNews from './src/screens/NewsScreen/FirstNews';
+import SearchBar from './src/components/SearchBar';
+import Colors from './src/constants/Colors';
 import {StyleSheet, View} from 'react-native';
-import SecondNews from './screens/SecondNews';
-import ThirdNews from './screens/ThirdNews';
-import EventsScreen from './screens/EventsScreeen';
-import WeatherScreen from './screens/WeatherScreen';
+import SecondNews from './src/screens/NewsScreen/SecondNews';
+import ThirdNews from './src/screens/NewsScreen/ThirdNews';
+import EventsScreen from './src/screens/EventsScreen';
+import WeatherScreen from './src/screens/WeatherScreen';
 
 // import {ScrollView} from 'react-native-gesture-handler';
 
