@@ -12,7 +12,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const FirstNews = () => {
+const FirstNews = params => {
+  const [newsData, setNewsData] = useState(params.route.params);
+  console.log(newsData, 'news data niiih');
   const [comment, setComment] = useState('');
 
   const handleCommentSubmit = () => {
@@ -24,34 +26,15 @@ const FirstNews = () => {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrlview} stickyHeaderIndices={[1]}>
-        <Text style={styles.judul}>
-          Facebook-parent Meta breaks up its Responsible AI team
-        </Text>
+        <Text style={styles.judul}>{newsData.title_berita}</Text>
         <Text style={styles.inteks}>November 20, 2023 - CNBC</Text>
         <Image
           source={require('../../../assets/images/meta.jpg')}
           style={styles.gambar}
         />
         <Text style={styles.isi}>
-          <Text style={styles.isi}>
-            Token WOZX berfungsi sebagai media di mana penghematan energi yang
-            dibuat pada platform Efforce diberi token untuk digunakan oleh
-            setiap pengguna. Pendiri Efforce Sesuai dengan namanya, (WOZX)
-            didirikan dan dikembangkan oleh Steve Wozniak, sang maestro IT yang
-            dikenal di seluruh dunia karena ikut mendirikan Apple bersama Steve
-            Jobs. Wozniak telah menyatakan pada saat itu, salah satu tujuan
-            utamanya adalah meningkatkan efisiensi energi dalam teknologi yang
-            sedang berkembang, dengan Apple akan fokus pada mesin yang lebih
-            kecil dan lebih efisien. Efforce melanjutkan etos itu, dengan siaran
-            pers resmi saat peluncuran yang menggambarkan produk tersebut
-            sebagai "platform terdesentralisasi pertama yang memungkinkan setiap
-            orang untuk berpartisipasi dan mendapatkan keuntungan finansial dari
-            proyek efisiensi energi di seluruh dunia, dan menciptakan perubahan
-            lingkungan yang berarti.” Adapun pendiri perusahaan lainnya Jacopo
-            Vanetti dan Andrea Castiglione yang memiliki pengalaman lebih dari
-            satu dekade di industri efisiensi energi.
-          </Text>
-          <Text style={styles.isi}>
+          <Text style={styles.isi}>{newsData.body_berita}</Text>
+          {/* <Text style={styles.isi}>
             Berapa Banyak Koin EFFORCE (WOZX) yang Beredar? Token EFFORCE (WOZX)
             adalah cryptocurrency standar ERC-20 dengan batas tetap di Ethereum
             untuk digunakan dan diperdagangkan secara bersamaan dengan platform
@@ -61,7 +44,7 @@ const FirstNews = () => {
             pribadi. Kemudian 20 persen digunakan untuk Efforce sendiri, 20
             persen lainnya untuk insentif pertambangan dan 15 persen sisanya
             untuk kegiatan ekosistem dan konsultasi.
-          </Text>
+          </Text> */}
         </Text>
 
         {/* Comment Input */}

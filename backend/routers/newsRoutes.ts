@@ -9,10 +9,11 @@ import {
   getNewsByTag,
   getSearchNews,
 } from '../controllers/newsController';
+import {verifyToken} from '../middlewares/verifyToken';
 
 const router = Router();
 
-// router.use(verifyToken);
+router.use(verifyToken);
 
 router.route('/').get(getAllNews);
 router.route('/search').get(getSearchNews);

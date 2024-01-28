@@ -3,8 +3,65 @@
 /* eslint-disable prettier/prettier */
 import {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-
+import {useNavigation} from '@react-navigation/native';
+import EncryptedStorage from 'react-native-encrypted-storage';
+import {getUserSesssion} from '../../store/SessionStore';
 const AboutScreen = () => {
+  const navigation = useNavigation();
+  const [session, setSession] = useState();
+  async function fetchData() {
+    try {
+      const requestOptions = {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${await EncryptedStorage.getItem(
+            'user_session',
+          )}`,
+        },
+      };
+      const response = await fetch(
+        'http://10.0.2.2:3000/api/v1/news',
+        requestOptions,
+      );
+      const data = await response.json();
+      console.log(data, 'dari about screen');
+      console.log(data.message);
+
+      // if ((data.message = ' Unauthorized')) {
+      //   navigation.navigate('LoginScreen');
+      // }
+
+      // useEffect(() => {
+      //   if (session === null) {
+      //     navigation.navigate('LoginScreen');
+      //   }
+      //   console.log('kenapa about login lagi?', session);
+      // }, []);
+
+      return data;
+    } catch (error) {
+      console.error(error);
+      return 0;
+    }
+  }
+  useEffect(() => {
+    fetchData();
+
+    // retrieveUserSession();
+  }, []);
+  // console.log(session);
+
+  useEffect(() => {
+    if (session === null) {
+      navigation.navigate('LoginScreen');
+    }
+    console.log('kenapa about login lagi?', session);
+  }, [session]);
+  console.log('sesi di about', session);
+  // if (!session) {
+  //   navigation.navigate('LoginScreen');
+  // }
+
   const [news, setNews] = useState({
     id: '',
     title: '',

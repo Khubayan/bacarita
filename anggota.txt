@@ -1,2 +1,5 @@
 I Kadek Yuda Asmara Putra, 210030312
 Shri Khubayan Kusuma, 210030307
+
+//Express Appnya ada di folder backend ya pak.
+//Pusing pak buat mobile app pake React Native, tapi klo web gaskan mah kita.

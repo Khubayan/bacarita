@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import {NextFunction, Response} from 'express';
+import {NextFunction, Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
 import {UserData, VerifyTokenRequestUserdata} from '../types/VerifyToken';
 import {ENVParsedTypes} from '../types/ENVTypes';

@@ -5,6 +5,7 @@ const loginControllers_1 = require("../controllers/loginControllers");
 const verifyToken_1 = require("../middlewares/verifyToken");
 const router = (0, express_1.Router)();
 router.route('/').post(loginControllers_1.postLogin);
+router.route('/create').post(loginControllers_1.postSignIn);
 // @ts-ignore // This line ignores the fact that verifyToken requires arguments, but Express automatically passes them.
 router.use(verifyToken_1.verifyToken);
 // These endpoints below require authentication to access.

@@ -5,55 +5,39 @@ import {View, Text, StyleSheet, Pressable} from 'react-native';
 import Colors from '../../constants/Colors';
 import CardText from '../../components/CardText';
 import ItemList from '../../components/ItemList';
-import {ScrollView} from 'react-native-gesture-handler';
+import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import Badge from '../../components/Bagdge';
 import {useNavigation} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
+import EncryptedStorage from 'react-native-encrypted-storage';
+import {getUserSesssion} from '../../store/SessionStore';
+import axios from 'axios';
+import ItemLists from '../../components/ItemLists';
+
 // import {useEffect} from 'react';
 // import {AppRootParamList} from '../types/NavigationTypes';
 
 async function fetchData() {
   try {
-    const response = await fetch('http://10.0.2.2:3000/api/v1/news');
-    const data = await response.json();
-    console.log(data);
+    const response = await axios.get('http://10.0.2.2:3000/api/v1/news');
+    const data = response.data;
     return data;
-  } catch (error) {
-    console.error(error);
+  } catch (e: any) {
+    console.log(e);
     return 0;
   }
 }
+let relog = true;
 
 const NewsScreen = () => {
   const navigation = useNavigation();
-
-  // useEffect(() => {
-  //   fetch('https://jsonplaceholder.typicode.com/todos/1')
-  //     .then(response => response.json())
-  //     .then(json => console.log(json));
-  // }, []);
-
-  // any :/
-  const handlePressNavigation = (pageName: any) => {
-    navigation.navigate(pageName);
+  const handlePressNavigation = (newsData: any) => {
+    navigation.navigate('FirstNews', newsData);
   };
 
-  // const handlePressBadge = () => {
-
-  // }
-
+  //news
   const [allNews, setAllNews] = useState({
-    message: [
-      {
-        body_berita: 'Ini adalah body berita',
-        created_at: '2024-01-25T11:58:58.000Z',
-        gambar_berita: null,
-        id_berita: 0,
-        id_user: null,
-        tag_berita: 'Tech',
-        title_berita: 'Place holder, mles buat types ;/',
-      },
-    ],
+    message: [false],
   });
 
   useEffect(() => {
@@ -62,8 +46,34 @@ const NewsScreen = () => {
       setAllNews(fetchedData);
     };
 
+    // relog != relog;
     fetchDataAndSetData();
-  }, []);
+  }, [allNews]);
+
+  // Relogin after 1 minute, why. I DON'T KNOW!!!!!!!!!!!!!!!!!!!!!. The token just gone, I have no idea why even i using package/lib for presistent store, not using AsyncStorage beacuse deprecated.
+  useEffect(() => {
+    const intervalId = setInterval(async () => {
+      console.log('allnews', allNews);
+      if (allNews.message[0] === false) {
+        relog = true;
+        console.log(allNews.message[0], 'oii');
+      }
+    }, 60000 * 60);
+    console.log(relog, 'oii');
+
+    return () => clearInterval(intervalId);
+  }, [relog]);
+
+  useEffect(() => {
+    if (relog) {
+      const relogin = async () => {
+        console.log(await getUserSesssion(), 'nanti ilang');
+        navigation.replace('LoginScreen');
+        relog = false;
+      };
+      relogin();
+    }
+  }, [relog]);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -91,43 +101,23 @@ const NewsScreen = () => {
             <Text>See All</Text>
           </View>
           <View>
-            <Pressable
-              onPress={() => {
-                handlePressNavigation('FirstNews');
-              }}>
-              <ItemList
-                itemImageLocalPath={require('../../assets/images/meta.jpg')}
-                itemTitle={
-                  allNews
-                    ? JSON.stringify(allNews.message[0].title_berita)
-                    : 'loading...'
-                }
-                itemDate="November 20, 2023"
-                itemBadge={{name: 'Techno'}}
-              />
-            </Pressable>
-            <Pressable
-              onPress={() => {
-                handlePressNavigation('SecondNews');
-              }}>
-              <ItemList
-                itemImageLocalPath={require('../../assets/images/btc.jpg')}
-                itemTitle="Binance's Changpeng Zhao to step down as part of $4.3..."
-                itemDate="November 22, 2023"
-                itemBadge={{name: 'Crypto'}}
-              />
-            </Pressable>
-            <Pressable
-              onPress={() => {
-                handlePressNavigation('ThirdNews');
-              }}>
-              <ItemList
-                itemImageLocalPath={require('../../assets/images/doge.jpg')}
-                itemTitle="Elon Musk reaffirms support for Dogecoin, Tesla holds..."
-                itemDate="November 21, 2023"
-                itemBadge={{name: 'Crypto'}}
-              />
-            </Pressable>
+            {/* This is not using Flatlist because React says that Flatlist shouldn't inside ScrollView or vice versa. Stackoverflow told me to do this, so be it:/ */}
+            {allNews.message?.map((news: any, index: number) => (
+              <Pressable
+                key={index} // Don't forget to add a unique key to each child in a list
+                onPress={() => {
+                  handlePressNavigation(news);
+                }}>
+                <ItemList
+                  itemImageLocalPath={require('../../assets/images/meta.jpg')}
+                  itemTitle={
+                    news ? JSON.stringify(news.title_berita) : 'loading...'
+                  }
+                  itemDate="November 20, 2023"
+                  itemBadge={{name: news.tag_berita}}
+                />
+              </Pressable>
+            ))}
           </View>
         </View>
       </View>
@@ -172,3 +162,63 @@ const style = StyleSheet.create({
 });
 
 export default NewsScreen;
+// news
+// const [allNews, setAllNews] = useState({
+//   message: [
+//     {
+//       body_berita: 'Ini adalah body berita',
+//       created_at: '2024-01-25T11:58:58.000Z',
+//       gambar_berita: null,
+//       id_berita: 0,
+//       id_user: null,
+//       tag_berita: 'Tech',
+//       title_berita: 'Place holder, mles buat types ;/',
+//     },
+//   ],
+// });
+
+// useEffect(() => {
+//   const fetchDataAndSetData = async () => {
+//     const fetchedData = await fetchData();
+//     setAllNews(fetchedData);
+//   };
+
+//   fetchDataAndSetData();
+// }, []);
+
+// const [allNews, settestCon] = useState({
+//   message: [
+//     {
+//       body_berita: 'Ini adalah body berita',
+//       created_at: '2024-01-25T11:58:58.000Z',
+//       gambar_berita: null,
+//       id_berita: 0,
+//       id_user: null,
+//       tag_berita: 'Tech',
+//       title_berita: 'Loading.....',
+//     },
+//   ],
+// });
+// const [session, setSession] = useState('');
+
+// useEffect(() => {
+//   console.log(getUserSesssion(), 'bjir home screen');
+//   // if (session === null) {
+//   //   navigation.navigate('LoginScreen');
+//   // }
+
+//   // settestCon(fetchdata());
+//   const intervalId = setInterval(() => {
+//     // settestCon();
+//     fetchdata();
+//     console.log('This runs every 10 seconds', session, '<');
+//   }, 5000);
+
+//   if (testCon.message === 'Unauthorized') {
+//     navigation.replace('LoginScreen');
+//   }
+//   return () => clearInterval(intervalId);
+// }, [testCon.message]);
+// const navigation = useNavigation();
+
+// fetch news

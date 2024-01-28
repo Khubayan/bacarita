@@ -14,7 +14,7 @@ export const generateToken = (JWT_SECRET_KEY: string, payload: any) => {
 };
 
 export const LoginSuccess = (JWT_SECRET_KEY: string, queryResult: any) => {
-  console.log('berhasil bang');
+  console.log('Login success');
 
   // console.log(results[0].id_user)
   const payload = {
@@ -23,7 +23,7 @@ export const LoginSuccess = (JWT_SECRET_KEY: string, queryResult: any) => {
   };
   generateToken(JWT_SECRET_KEY, payload);
   return {
-    message: 'berhasil Login klengg',
+    message: 'Login is success',
     status: 200,
     token: loginToken,
   };

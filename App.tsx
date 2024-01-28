@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react/react-in-jsx-scope */
 import 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
@@ -16,6 +16,10 @@ import SecondNews from './src/screens/NewsScreen/SecondNews';
 import ThirdNews from './src/screens/NewsScreen/ThirdNews';
 import EventsScreen from './src/screens/EventsScreen';
 import WeatherScreen from './src/screens/WeatherScreen';
+import LoginScreen from './src/screens/LoginScreen';
+import {Dispatch, SetStateAction, useEffect, useState} from 'react';
+import EncryptedStorage from 'react-native-encrypted-storage';
+import SignInScreen from './src/screens/SignInScreen';
 
 // import {ScrollView} from 'react-native-gesture-handler';
 
@@ -24,89 +28,91 @@ const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
 
 const TopTabComponent = () => {
-  return (
-    <View style={[style.flexContent, style.mainBacground]}>
-      <View style={[style.container]}>
-        <SearchBar />
+  if (async () => await EncryptedStorage.getItem('user_session')) {
+    return (
+      <View style={[style.flexContent, style.mainBacground]}>
+        <View style={[style.container]}>
+          <SearchBar />
+        </View>
+
+        <TopTab.Navigator
+          screenOptions={() => {
+            return {
+              tabBarStyle: {
+                backgroundColor: style.mainBacground.backgroundColor, // Change this to white
+                elevation: 0,
+                left: 9,
+              },
+              tabBarLabelStyle: {
+                // Adjust the text color as needed
+                fontFamily: 'Roboto-Medium',
+                fontSize: 20,
+                textTransform: 'capitalize',
+              },
+              tabBarIndicatorStyle: {
+                backgroundColor: Colors.primary300,
+                width: 20,
+                left: 35,
+                top: 40,
+                height: 4,
+                borderRadius: 2,
+              },
+            };
+          }}>
+          <TopTab.Screen
+            options={{
+              tabBarActiveTintColor: Colors.fontPrimary,
+              tabBarInactiveTintColor: Colors.fontSecondary,
+              tabBarLabelStyle: {
+                fontSize: 20,
+                fontFamily: 'Roboto-Medium',
+
+                textTransform: 'capitalize',
+              },
+            }}
+            name="News"
+            component={NewsScreen}
+          />
+          <TopTab.Screen
+            options={{
+              tabBarActiveTintColor: Colors.fontPrimary,
+              tabBarInactiveTintColor: Colors.fontSecondary,
+              tabBarLabelStyle: {
+                left: 8,
+                // right: 0.1,
+                marginRight: 12,
+                fontSize: 20,
+                fontFamily: 'Roboto-Medium',
+
+                textTransform: 'capitalize',
+              },
+            }}
+            name="Events"
+            component={EventsScreen}
+          />
+          <TopTab.Screen
+            options={{
+              tabBarActiveTintColor: Colors.fontPrimary,
+              tabBarInactiveTintColor: Colors.fontSecondary,
+              tabBarLabelStyle: {
+                left: 11,
+                // right: 0.1,
+                fontSize: 20,
+                fontFamily: 'Roboto-Medium',
+
+                textTransform: 'capitalize',
+              },
+            }}
+            name="Weather"
+            component={WeatherScreen}
+          />
+        </TopTab.Navigator>
       </View>
-
-      <TopTab.Navigator
-        screenOptions={() => {
-          return {
-            tabBarStyle: {
-              backgroundColor: style.mainBacground.backgroundColor, // Change this to white
-              elevation: 0,
-              left: 9,
-            },
-            tabBarLabelStyle: {
-              // Adjust the text color as needed
-              fontFamily: 'Roboto-Medium',
-              fontSize: 20,
-              textTransform: 'capitalize',
-            },
-            tabBarIndicatorStyle: {
-              backgroundColor: Colors.primary300,
-              width: 20,
-              left: 35,
-              top: 40,
-              height: 4,
-              borderRadius: 2,
-            },
-          };
-        }}>
-        <TopTab.Screen
-          options={{
-            tabBarActiveTintColor: Colors.fontPrimary,
-            tabBarInactiveTintColor: Colors.fontSecondary,
-            tabBarLabelStyle: {
-              fontSize: 20,
-              fontFamily: 'Roboto-Medium',
-
-              textTransform: 'capitalize',
-            },
-          }}
-          name="News"
-          component={NewsScreen}
-        />
-        <TopTab.Screen
-          options={{
-            tabBarActiveTintColor: Colors.fontPrimary,
-            tabBarInactiveTintColor: Colors.fontSecondary,
-            tabBarLabelStyle: {
-              left: 8,
-              // right: 0.1,
-              marginRight: 12,
-              fontSize: 20,
-              fontFamily: 'Roboto-Medium',
-
-              textTransform: 'capitalize',
-            },
-          }}
-          name="Events"
-          component={EventsScreen}
-        />
-        <TopTab.Screen
-          options={{
-            tabBarActiveTintColor: Colors.fontPrimary,
-            tabBarInactiveTintColor: Colors.fontSecondary,
-            tabBarLabelStyle: {
-              left: 11,
-              // right: 0.1,
-              fontSize: 20,
-              fontFamily: 'Roboto-Medium',
-
-              textTransform: 'capitalize',
-            },
-          }}
-          name="Weather"
-          component={WeatherScreen}
-        />
-      </TopTab.Navigator>
-    </View>
-  );
+    );
+  }
 };
 
-const MainTabs = () => {
+export const MainTabs = () => {
   return (
     <>
       <Tab.Navigator
@@ -137,6 +143,7 @@ const MainTabs = () => {
             tabBarShowLabel: false,
             // eslint-disable-next-line react/no-unstable-nested-components
             tabBarIcon: ({focused}) => {
+              EncryptedStorage.setItem('user_session', JSON.stringify(''));
               const color = focused ? Colors.primary300 : Colors.secondary300;
               return <Icon name="gift" size={32} color={color} />;
             },
@@ -149,8 +156,8 @@ const MainTabs = () => {
 
 const App = () => {
   return (
-    <View style={[style.flexContent, style.mainBacground]}>
-      <NavigationContainer>
+    <NavigationContainer>
+      <View style={[style.flexContent, style.mainBacground]}>
         <Stack.Navigator
           initialRouteName="MainTabs"
           screenOptions={() => ({
@@ -164,13 +171,17 @@ const App = () => {
               borderRadius: 16,
             },
           })}>
+          {/* {!session && <Stack.Screen name="Login" component={LoginScreen} />} */}
+          {/* Add other screens here */}
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="MainTabs" component={MainTabs} />
+          <Stack.Screen name="SignInScreen" component={SignInScreen} />
           <Stack.Screen name="FirstNews" component={FirstNews} />
           <Stack.Screen name="SecondNews" component={SecondNews} />
           <Stack.Screen name="ThirdNews" component={ThirdNews} />
         </Stack.Navigator>
-      </NavigationContainer>
-    </View>
+      </View>
+    </NavigationContainer>
   );
 };
 

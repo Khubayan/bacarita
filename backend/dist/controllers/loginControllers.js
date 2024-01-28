@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postLogin = exports.getHelloWorld = void 0;
+exports.postSignIn = exports.postLogin = exports.getHelloWorld = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 const dbConnect_1 = __importDefault(require("../services/dbConnect"));
 const LoginSuccess_1 = require("../services/LoginSuccess");
@@ -32,11 +32,13 @@ const postLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const query = `SELECT * FROM ${env.TB_USER} WHERE email = ? AND password = ?`;
         const values = [req.body.email, req.body.password];
+        console.log(req.body.email, req.body.password);
         db.query(query, values, (error, result) => {
             if (error) {
                 res.status(505).json((0, ErrorLogin_1.default)(error));
             }
             if (result.length > 0) {
+                console.log('ini auth', req.headers.authorization);
                 const response = (0, LoginSuccess_1.LoginSuccess)(env.JWT_SECRET_KEY, result);
                 res.status(200).json(response);
                 token = response.token;
@@ -52,3 +54,29 @@ const postLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.postLogin = postLogin;
+const postSignIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const query = `INSERT INTO ${env.TB_USER} (id_user, email, password) VALUES (?, ?, ?)`;
+        const values = [
+            Math.floor(Math.random() * (1000 - 4 + 1)) + 4,
+            req.body.email,
+            req.body.password,
+        ];
+        console.log(req.body.email, req.body.password);
+        db.query(query, values, (error, result) => {
+            if (error) {
+                res.status(505).json((0, ErrorLogin_1.default)(error));
+            }
+            else {
+                console.log('User inserted successfully');
+                const response = { message: 'User inserted successfully' };
+                res.status(200).json(response);
+            }
+        });
+    }
+    catch (e) {
+        console.error('Error during user insertion:', e);
+        res.status(500).json({ error: `Internal server error ${e}` });
+    }
+});
+exports.postSignIn = postSignIn;

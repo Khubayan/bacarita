@@ -5,8 +5,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const newsController_1 = require("../controllers/newsController");
+const verifyToken_1 = require("../middlewares/verifyToken");
 const router = (0, express_1.Router)();
-// router.use(verifyToken);
+router.use(verifyToken_1.verifyToken);
 router.route('/').get(newsController_1.getAllNews);
 router.route('/search').get(newsController_1.getSearchNews);
 router.route('/tags').get(newsController_1.getNewsByTag);
